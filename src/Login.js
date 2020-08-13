@@ -1,87 +1,143 @@
 import React from 'react';
-import {Button, Form, FormGroup, Label, Input, FormFeedback} from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 import './Login.css';
 
-class Login extends React.Component{
-    constructor(props){
+const MODEL = 'usuarios';
+
+const API_URL = "http://localhost:3000/api/" + MODEL;
+
+const HEADERS = new Headers({
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+});
+
+class Login extends React.Component {
+    constructor(props) {
         super(props);
-        this.state={
-            nombre:"",
-            password:"",
-            errorPassword: false,
-            passwordStatus: 0,
-            nombreStatus: 0
+        this.state = {
+            loginState: "",
+            loginStates: {
+                LOGEDOUT: "logedout",
+                FAILED: "failed",
+                LOGEDIN: "logedin"
+            },
+            id: 0,
+            nombre: "",
+            password: "",
         }
-        this.handleInputChange = this.handleInputChange.bind(this);
-       this.handleSubmit = this.handleSubmit.bind(this);
-      }
+        this.newUser = this.newUser.bind(this);
+        this.logIn = this.logIn.bind(this);
+        this.logOut = this.logOut.bind(this);
+        this.loginFail = this.loginFail.bind(this);
+    }
 
-      handleInputChange(evento) {
-        const target = evento.target; //objeto concreto que ha disparado este evento
-        const value = target.type === 'checkbox' ? target.checked : target.value; //value funciona bien para todos los tipos de input excepto el checked
-        const name = target.name;
+    componentDidMount() {
+        this.setState({ loginState: this.state.loginStates.LOGEDOUT })
+    }
+
+    logIn() {
+
+        let dbUsuario;
+
+        const opcions = {
+            method: "GET",
+            headers: HEADERS
+        };
+
+        fetch(API_URL + "/findOne?_where=(nombre,eq," + this.state.nombre + ")", opcions)
+            .then(texto => texto.json())
+            .then(usuarioData => dbUsuario = usuarioData[0])
+            .then(x => this.setState({ id: dbUsuario.idUsuario }))
+            .then(x => { dbUsuario.password == this.state.password ? this.setState({ loginState: this.state.loginStates.LOGEDIN }) : this.loginFail() })
+            .catch(error => {
+                console.log("se ha producido un error: ", error)
+                this.loginFail()
+            });
+    }
+
+    loginFail() {
+        console.log("Usuario o contraseña no validos")
         this.setState({
-          [name]: value //[name] coje el valor de la constante name par escoger la variable de state a cambiar
+            id: 0,
+            nombre: '',
+            password: '',
+            loginState: this.state.loginStates.FAILED
+        })
+    }
+
+    logOut() {
+        this.setState({
+            id: 0,
+            nombre: '',
+            password: '',
+            loginState: this.state.loginStates.LOGEDOUT
+        })
+        //this.actualizaInputs;
+    }
+
+    newUser() {
+        const usuario = {
+            nombre: this.state.nombre,
+            password: this.state.password
+        };
+
+        const opcions = {
+            method: "POST",
+            headers: HEADERS,
+            body: JSON.stringify(usuario)
+        };
+
+        fetch(API_URL, opcions)
+            .then(() => this.setState({
+                id: 0,
+                nombre: '',
+                password: ''
+            }))
+            .catch(error => console.log("se ha producido un error: ", error));
+    }
+
+    actualizaInputs = (event) => {
+        const value = event.target.value;
+        const name = event.target.name;
+        this.setState({
+            [name]: value
         });
-      }
+    }
 
-     handleSubmit(event) {
-        event.preventDefault(); //deten el envío del formulario
-        const NOM='ricard'
-        const PASS='1234'
-        if (this.state.password===PASS){
-            this.setState({passwordStatus: 1}); //correcto
-        }else{
-            this.setState ({passwordStatus: 2}); //incorrecto
+    render() {
+
+        let login = <></>
+
+        if (this.state.loginState != this.state.loginStates.LOGEDIN) {
+            login =
+                <div className="inputs">
+                    <Label for="nomInput">Nombre</Label>
+                    <Input id="nomInput" type="text" value={this.state.nombre} name="nombre" onChange={this.actualizaInputs} />
+                    <Label for="emailInput">Password</Label>
+                    <Input id="emailInput" type="password" value={this.state.password} name="password" onChange={this.actualizaInputs} />
+                    <br />
+
+                    <Button color="success" onClick={this.logIn}>Login</Button>
+
+                    {
+                        this.state.loginState == this.state.loginStates.FAILED ?
+                            <p className="errorLogin">Usuario o contraseña no validos.</p> : <></>
+                    }
+                </div>
         }
-        if (this.state.nombre===NOM){
-            this.setState({nombreStatus: 1}); //correcto
-        }else{
-            this.setState ({nombreStatus: 2}); //incorrecto
+        else {
+            login =
+                <div>
+                    <h3>Usuario {this.state.nombre}</h3>
+                    <Button style={{ marginLeft: "10px" }} color="danger" onClick={this.logOut}>Logout</Button>
+                </div>
         }
-        //...conexión con el servidor para enviar datos o consultar permisos...
-        // fetch... necesitamos un servidor detrás que nos pueda validar; lo haríamos
-        
-      }
-    
-    render(){
-        
-        let validPassword=null;
-        if(this.state.passwordStatus===2) validPassword={invalid:true};
-        if(this.state.passwordStatus===1) validPassword={valid:true};
 
-        let validNombre=null;
-        if(this.state.nombreStatus===2) validNombre={valid:true};
-        if(this.state.nombreStatus===1) validNombre={invalid:true};
-        
-       
-
-        return(
-            <div>
-                <h1> Login Form</h1>
-                <Form onSubmit={this.handleSubmit}>
-                    <FormGroup>
-                        <Label for='campoNombre'>Nombre</Label>
-                        <Input className='campo' {...validNombre} onChange={this.handleInputChange} type="text" name="nombre" id="nombreemail" placeholder="entra nombre"></Input>
-                        <FormFeedback valid>OK! </FormFeedback>
-                        <FormFeedback invalid> Nombre incorrecto</FormFeedback>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for='campoPassword'>Password</Label>
-                        <Input className='campo' {...validPassword} onChange={this.handleInputChange} type="password" name="password" id="campopassword" placeholder="entra password"></Input>
-                        <FormFeedback valid>OK! Bienvenido</FormFeedback>
-                        <FormFeedback> Password incorrecto</FormFeedback>                        
-                    </FormGroup>
-                   <Button>Enviar</Button>
-                 
-                </Form>
-
-                
-                <h3>{this.state.nombre}</h3>
-                <h3>{this.state.password}</h3>
-            </div>
+        return (
+            <>
+                {login}
+            </>
         )
-
     }
 }
 export default Login;

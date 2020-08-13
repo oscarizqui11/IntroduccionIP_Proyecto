@@ -49,7 +49,7 @@ class Ciudad extends Component {
     render() {
 
         const distritos = this.state.lista.map((el, i) => (
-            <th key={i} onClick={() => this.selectDistrito(el)}> {el.nombre} </th>
+            <th className="btn btn-primary" key={i} onClick={() => this.selectDistrito(el)}> {el.nombre} </th>
         ));
 
         return (

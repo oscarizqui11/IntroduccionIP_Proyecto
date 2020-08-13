@@ -1,0 +1,213 @@
+"use strict";
+
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+
+try {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = void 0;
+
+  var _react = _interopRequireWildcard(require("react"));
+
+  var _reactstrap = require("reactstrap");
+
+  function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+  function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+  const MODEL = 'alumnes';
+  const API_URL = "http://xmysql.duckdns.org:3000/api/" + MODEL;
+  const HEADERS = new Headers({
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  });
+
+  class Alumnes extends _react.Component {
+    constructor(props) {
+      super(props);
+
+      this.actualizaInputs = event => {
+        const value = event.target.value;
+        const name = event.target.name;
+        this.setState({
+          [name]: value
+        });
+      };
+
+      this.state = {
+        llista: [],
+        id: 0,
+        nom: '',
+        email: '',
+        name: "kkk"
+      };
+      this.cargaDatos = this.cargaDatos.bind(this);
+      this.actualizaInputs = this.actualizaInputs.bind(this);
+      this.desar = this.desar.bind(this);
+      this.borrar = this.borrar.bind(this);
+      this.editar = this.editar.bind(this);
+      this.noEditar = this.noEditar.bind(this);
+      this.ordenaNom = this.ordenaNom.bind(this);
+      this.ordenaId = this.ordenaId.bind(this);
+    }
+
+    ordenaNom() {
+      console.log("ordenant...");
+
+      function ordeNomAsc(a, b) {
+        if (a.nom > b.nom) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }
+
+      const nuevaLista = [...this.state.llista];
+      nuevaLista.sort(ordeNomAsc);
+      this.setState({
+        llista: nuevaLista
+      });
+    }
+
+    ordenaId() {
+      console.log("ordenant...");
+
+      function ordeIdAsc(a, b) {
+        if (a.id > b.id) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }
+
+      const nuevaLista = [...this.state.llista];
+      nuevaLista.sort(ordeIdAsc);
+      this.setState({
+        llista: nuevaLista
+      });
+    }
+
+    noEditar() {
+      this.setState({
+        id: 0,
+        nom: '',
+        email: ''
+      });
+    }
+
+    editar(alumne) {
+      console.log("editando alumno: ", alumne.nom);
+      this.setState({
+        nom: alumne.nom,
+        email: alumne.email,
+        id: alumne.id
+      });
+    }
+
+    borrar(id) {
+      console.log("borrando " + id);
+      const opcions = {
+        method: "DELETE",
+        headers: HEADERS
+      };
+      const deleteURL = API_URL + '/' + id;
+      fetch(deleteURL, opcions).then(respuesta => respuesta.json()).then(ddd => console.log(ddd)).then(() => this.cargaDatos()).catch(error => console.log("se ha producido un error: ", error));
+    }
+
+    desar() {
+      const alumne = {
+        nom: this.state.nom,
+        email: this.state.email
+      };
+      const opcions = {
+        method: this.state.id > 0 ? "PATCH" : "POST",
+        headers: HEADERS,
+        body: JSON.stringify(alumne)
+      };
+      const desarURL = this.state.id > 0 ? API_URL + '/' + this.state.id : API_URL;
+      fetch(desarURL, opcions) // .then(respuesta => respuesta.json())
+      // .then(ddd => console.log(ddd))
+      .then(() => this.cargaDatos()).then(() => this.setState({
+        id: 0,
+        nom: '',
+        email: ''
+      })).catch(error => console.log("se ha producido un error: ", error));
+    }
+
+    componentDidMount() {
+      this.cargaDatos();
+    }
+
+    cargaDatos() {
+      const opcions = {
+        method: "GET",
+        headers: HEADERS
+      };
+      fetch(API_URL + "?_sort=-id", opcions).then(texto => texto.json()).then(datos => this.setState({
+        llista: datos
+      })).catch(error => console.log("se ha producido un error: ", error));
+    }
+
+    render() {
+      if (this.state.llista.length === 0) {
+        return /*#__PURE__*/_react.default.createElement("h3", null, "Loading...");
+      }
+
+      const filas = this.state.llista.map((el, i) => /*#__PURE__*/_react.default.createElement("tr", {
+        key: i
+      }, /*#__PURE__*/_react.default.createElement("td", null, el.id), /*#__PURE__*/_react.default.createElement("td", null, el.nom), /*#__PURE__*/_react.default.createElement("td", null, el.email), /*#__PURE__*/_react.default.createElement("td", null, /*#__PURE__*/_react.default.createElement(_reactstrap.Button, {
+        disabled: el.id === this.state.id,
+        color: "danger",
+        onClick: () => this.borrar(el.id)
+      }, "Borrar")), /*#__PURE__*/_react.default.createElement("td", null, /*#__PURE__*/_react.default.createElement(_reactstrap.Button, {
+        color: "primary",
+        onClick: () => this.editar(el)
+      }, "Editar"))));
+      return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h1", null, MODEL), /*#__PURE__*/_react.default.createElement("div", {
+        className: "inputs"
+      }, /*#__PURE__*/_react.default.createElement(_reactstrap.Label, {
+        for: "nomInput"
+      }, "Nom"), /*#__PURE__*/_react.default.createElement(_reactstrap.Input, {
+        id: "nomInput",
+        type: "text",
+        value: this.state.nom,
+        name: "nom",
+        onChange: this.actualizaInputs
+      }), /*#__PURE__*/_react.default.createElement(_reactstrap.Label, {
+        for: "emailInput"
+      }, "Email"), /*#__PURE__*/_react.default.createElement(_reactstrap.Input, {
+        id: "emailInput",
+        type: "text",
+        value: this.state.email,
+        name: "email",
+        onChange: this.actualizaInputs
+      }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactstrap.Button, {
+        color: this.state.id > 0 ? "primary" : "success",
+        onClick: this.desar
+      }, this.state.id > 0 ? "Modifica" : "Nou"), this.state.id > 0 ? /*#__PURE__*/_react.default.createElement(_reactstrap.Button, {
+        style: {
+          marginLeft: "10px"
+        },
+        color: "danger",
+        onClick: this.noEditar
+      }, "Cancel") : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null)), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactstrap.Table, null, /*#__PURE__*/_react.default.createElement("thead", null, /*#__PURE__*/_react.default.createElement("tr", null, /*#__PURE__*/_react.default.createElement("th", null, "#"), /*#__PURE__*/_react.default.createElement("th", null, "Nom"), /*#__PURE__*/_react.default.createElement("th", null, "Email"), /*#__PURE__*/_react.default.createElement("th", null))), /*#__PURE__*/_react.default.createElement("tbody", null, filas)), /*#__PURE__*/_react.default.createElement(_reactstrap.Button, {
+        onClick: this.ordenaNom
+      }, "Ordena nom"), /*#__PURE__*/_react.default.createElement(_reactstrap.Button, {
+        onClick: this.ordenaId
+      }, "Ordena id"));
+    }
+
+  }
+
+  var _default = Alumnes;
+  exports.default = _default;
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}

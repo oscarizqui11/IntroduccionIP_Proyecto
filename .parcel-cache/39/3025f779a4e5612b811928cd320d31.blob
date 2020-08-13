@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Parcel Micro App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="fc7eca939249dd8ec8722e87984f20fd"></script>
+  </body>
+</html>
