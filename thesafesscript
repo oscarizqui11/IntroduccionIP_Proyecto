@@ -1,0 +1,100 @@
+CREATE SCHEMA `thesafess` ;
+
+use thesafess;
+
+CREATE TABLE `thesafess`.`usuarios` (
+  `idusuarios` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idusuarios`),
+  UNIQUE INDEX `idusuarios_UNIQUE` (`idusuarios` ASC) VISIBLE,
+  UNIQUE INDEX `nombre_UNIQUE` (`nombre` ASC) VISIBLE);
+  
+CREATE TABLE `thesafess`.`ciudades` (
+  `idciudades` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idciudades`),
+  UNIQUE INDEX `idciudades_UNIQUE` (`idciudades` ASC) VISIBLE);
+
+CREATE TABLE `thesafess`.`distritos` (
+  `iddistritos` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `numDistrito` INT NOT NULL,
+  `ciudades_idciudades` INT NOT NULL,
+  PRIMARY KEY (`iddistritos`),
+  UNIQUE INDEX `numDistrito_UNIQUE` (`numDistrito` ASC) VISIBLE,
+  UNIQUE INDEX `iddistritos_UNIQUE` (`iddistritos` ASC) VISIBLE,
+  INDEX `fk_distritos_ciudades_idx` (`ciudades_idciudades` ASC) VISIBLE,
+  CONSTRAINT `fk_distritos_ciudades`
+    FOREIGN KEY (`ciudades_idciudades`)
+    REFERENCES `thesafess`.`ciudades` (`idciudades`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `thesafess`.`comentarios` (
+  `idcomentarios` INT NOT NULL AUTO_INCREMENT,
+  `texto` VARCHAR(200) NOT NULL,
+  `distritos_iddistritos` INT NOT NULL,
+  `usuarios_idusuarios` INT NOT NULL,
+  PRIMARY KEY (`idcomentarios`),
+  INDEX `fk_comentarios_distritos1_idx` (`distritos_iddistritos` ASC) VISIBLE,
+  INDEX `fk_comentarios_usuarios1_idx` (`usuarios_idusuarios` ASC) VISIBLE,
+  CONSTRAINT `fk_comentarios_distritos1`
+    FOREIGN KEY (`distritos_iddistritos`)
+    REFERENCES `thesafess`.`distritos` (`iddistritos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_comentarios_usuarios1`
+    FOREIGN KEY (`usuarios_idusuarios`)
+    REFERENCES `thesafess`.`usuarios` (`idusuarios`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Data for table `thesafess`.`ciudades`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `thesafess`;
+INSERT INTO `thesafess`.`ciudades` (`idciudades`, `nombre`) VALUES (DEFAULT, 'Barcelona');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `thesafess`.`usuarios`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `thesafess`;
+INSERT INTO `thesafess`.`usuarios` (`idusuarios`, `nombre`, `password`) VALUES (DEFAULT, 'Oscar', 'izqui11');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `thesafess`.`distritos`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `thesafess`;
+INSERT INTO `thesafess`.`distritos` (`iddistritos`, `nombre`, `numDistrito`, `ciudades_idciudades`) VALUES (DEFAULT, 'Ciutat Vella', 1, 1);
+INSERT INTO `thesafess`.`distritos` (`iddistritos`, `nombre`, `numDistrito`, `ciudades_idciudades`) VALUES (DEFAULT, 'Eixample', 2, 1);
+INSERT INTO `thesafess`.`distritos` (`iddistritos`, `nombre`, `numDistrito`, `ciudades_idciudades`) VALUES (DEFAULT, 'Sants-Montjuïc', 3, 1);
+INSERT INTO `thesafess`.`distritos` (`iddistritos`, `nombre`, `numDistrito`, `ciudades_idciudades`) VALUES (DEFAULT, 'Les Corts', 4, 1);
+INSERT INTO `thesafess`.`distritos` (`iddistritos`, `nombre`, `numDistrito`, `ciudades_idciudades`) VALUES (DEFAULT, 'Sarrià-Sant Gervasi', 5, 1);
+INSERT INTO `thesafess`.`distritos` (`iddistritos`, `nombre`, `numDistrito`, `ciudades_idciudades`) VALUES (DEFAULT, 'Gràcia', 6, 1);
+INSERT INTO `thesafess`.`distritos` (`iddistritos`, `nombre`, `numDistrito`, `ciudades_idciudades`) VALUES (DEFAULT, 'Horta-Guinardó', 7, 1);
+INSERT INTO `thesafess`.`distritos` (`iddistritos`, `nombre`, `numDistrito`, `ciudades_idciudades`) VALUES (DEFAULT, 'Nou Barris', 8, 1);
+INSERT INTO `thesafess`.`distritos` (`iddistritos`, `nombre`, `numDistrito`, `ciudades_idciudades`) VALUES (DEFAULT, 'Sant Andreu', 9, 1);
+INSERT INTO `thesafess`.`distritos` (`iddistritos`, `nombre`, `numDistrito`, `ciudades_idciudades`) VALUES (DEFAULT, 'Sant Martí', 10, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `thesafess`.`comentarios`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `thesafess`;
+INSERT INTO `thesafess`.`comentarios` (`idcomentarios`, `texto`, `distritos_iddistritos`, `usuarios_idusuarios`) VALUES (DEFAULT, 'Ciutat Vella mola mazo', 1, 1);
+
+COMMIT;

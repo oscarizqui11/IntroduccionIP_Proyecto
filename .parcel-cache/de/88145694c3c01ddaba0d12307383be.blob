@@ -29217,30 +29217,64 @@ try {
     constructor(props) {
       super(props);
       this.state = {
+        loginState: "logedout",
+        loginStates: {
+          LOGEDOUT: "logedout",
+          FAILED: "failed",
+          LOGEDIN: "logedin"
+        },
         id: 0,
-        nombre: ""
+        nombre: "",
+        password: ""
       };
-      this.logIn = this.logIn.bind(this);
-      this.logOut = this.logOut.bind(this);
+      this.logIn = this.logIn.bind(this); //this.logOut = this.logOut.bind(this);
+      //this.loginFail = this.loginFail.bind(this);
     }
-
-    logOut() {
+    /*logIn() {
+      let dbUsuario;
+       const opcions = {
+        method: "GET",
+        headers: HEADERS
+      };
+       fetch(API_URL + "usuarios/findOne?_where=(nombre,eq," + nombre + ")", opcions)
+        .then(texto => texto.json())
+        .then(usuarioData => dbUsuario = usuarioData[0])
+        .then(x => this.setState({ id: dbUsuario.idUsuario }))
+        .then(x => { dbUsuario.password == password  ? this.setState({ loginState: this.state.loginStates.LOGEDIN }) : this.loginFail() })
+        .catch(error => {
+          console.log("se ha producido un error: ", error)
+          this.loginFail()
+        });
+    }
+     loginFail() {
+      console.log("Usuario o contraseña no validos")
       this.setState({
-        id: 0
-      });
-      console.log("loged out");
+        id: 0,
+        loginState: this.state.loginStates.FAILED,
+        nombre: "",
+        password: ""
+      })
     }
+     logOut() {
+      this.setState({
+        id: 0,
+        loginState: this.state.loginStates.LOGEDOUT,
+        nombre: "",
+        password: ""
+      })
+    }*/
+
 
     logIn(idUsuario) {
       this.setState({
-        id: idUsuario
+        id: idUsuario,
+        loginState: this.state.loginStates.LOGEDIN
       });
     }
 
     render() {
       return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_Login.default, {
-        logIn: this.logIn,
-        logOut: this.logOut
+        logIn: this.logIn
       }), /*#__PURE__*/_react.default.createElement(_Cuerpo.default, null));
     }
 
@@ -29304,7 +29338,7 @@ try {
       };
 
       this.state = {
-        loginState: "logedout",
+        loginState: "",
         loginStates: {
           LOGEDOUT: "logedout",
           FAILED: "failed",
@@ -29320,16 +29354,24 @@ try {
       this.loginFail = this.loginFail.bind(this);
     }
 
+    componentDidMount() {
+      this.setState({
+        loginState: this.state.loginStates.LOGEDOUT
+      });
+    }
+
     logIn() {
-      let usuarioData;
+      let dbUsuario;
       const opcions = {
         method: "GET",
         headers: HEADERS
       };
-      fetch(API_URL + "/findOne?_where=(nombre,eq," + this.state.nombre + ")", opcions).then(texto => texto.json()).then(dbUsuario => usuarioData = dbUsuario[0]).then(x => {
-        usuarioData.password == this.state.password ? this.setState({
+      fetch(API_URL + "/findOne?_where=(nombre,eq," + this.state.nombre + ")", opcions).then(texto => texto.json()).then(usuarioData => dbUsuario = usuarioData[0]).then(x => this.setState({
+        id: dbUsuario.idUsuario
+      })).then(x => {
+        dbUsuario.password == this.state.password ? this.setState({
           loginState: this.state.loginStates.LOGEDIN
-        }, this.props.logIn(usuarioData.idUsuario)) : this.loginFail();
+        }) : this.loginFail();
       }).catch(error => {
         console.log("se ha producido un error: ", error);
         this.loginFail();
@@ -29353,7 +29395,6 @@ try {
         password: '',
         loginState: this.state.loginStates.LOGEDOUT
       });
-      this.props.logOut();
       this.actualizaInputs;
     }
 

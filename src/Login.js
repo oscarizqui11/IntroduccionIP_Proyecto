@@ -15,7 +15,7 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loginState: "",
+            loginState: "logedout",
             loginStates: {
                 LOGEDOUT: "logedout",
                 FAILED: "failed",
@@ -31,13 +31,9 @@ class Login extends React.Component {
         this.loginFail = this.loginFail.bind(this);
     }
 
-    componentDidMount() {
-        this.setState({ loginState: this.state.loginStates.LOGEDOUT })
-    }
-
     logIn() {
 
-        let dbUsuario;
+        let usuarioData;
 
         const opcions = {
             method: "GET",
@@ -46,9 +42,8 @@ class Login extends React.Component {
 
         fetch(API_URL + "/findOne?_where=(nombre,eq," + this.state.nombre + ")", opcions)
             .then(texto => texto.json())
-            .then(usuarioData => dbUsuario = usuarioData[0])
-            .then(x => this.setState({ id: dbUsuario.idUsuario }))
-            .then(x => { dbUsuario.password == this.state.password ? this.setState({ loginState: this.state.loginStates.LOGEDIN }) : this.loginFail() })
+            .then(dbUsuario => usuarioData = dbUsuario[0])
+            .then(x => { usuarioData.password == this.state.password ? this.setState({ loginState: this.state.loginStates.LOGEDIN }, this.props.logIn(usuarioData.idUsuario)) : this.loginFail() })
             .catch(error => {
                 console.log("se ha producido un error: ", error)
                 this.loginFail()
@@ -72,7 +67,8 @@ class Login extends React.Component {
             password: '',
             loginState: this.state.loginStates.LOGEDOUT
         })
-        //this.actualizaInputs;
+        this.props.logOut();
+        this.actualizaInputs;
     }
 
     newUser() {
@@ -112,9 +108,9 @@ class Login extends React.Component {
             login =
                 <div className="inputs">
                     <Label for="nomInput">Nombre</Label>
-                    <Input id="nomInput" type="text" value={this.state.nombre} name="nombre" onChange={this.actualizaInputs} />
+                    <Input id="nomInput" type="text" value={this.state.nombre} onChange={this.actualizaInputs} name="nombre" />
                     <Label for="emailInput">Password</Label>
-                    <Input id="emailInput" type="password" value={this.state.password} name="password" onChange={this.actualizaInputs} />
+                    <Input id="emailInput" type="password" value={this.state.password} onChange={this.actualizaInputs} name="password" />
                     <br />
 
                     <Button color="success" onClick={this.logIn}>Login</Button>

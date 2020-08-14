@@ -29217,31 +29217,72 @@ try {
     constructor(props) {
       super(props);
       this.state = {
+        loginState: "",
+        loginStates: {
+          LOGEDOUT: "logedout",
+          FAILED: "failed",
+          LOGEDIN: "logedin"
+        },
         id: 0,
-        nombre: ""
+        nombre: "",
+        password: ""
       };
       this.logIn = this.logIn.bind(this);
       this.logOut = this.logOut.bind(this);
+      this.loginFail = this.loginFail.bind(this);
+    }
+
+    componentDidMount() {
+      this.setState({
+        loginState: this.state.loginStates.LOGEDOUT
+      });
+    }
+
+    logIn(nombre, password
+    /*callback*/
+    ) {
+      let dbUsuario;
+      const opcions = {
+        method: "GET",
+        headers: HEADERS
+      };
+      fetch(API_URL + "usuarios/findOne?_where=(nombre,eq," + nombre
+      /*arguments[1]*/
+      + ")", opcions).then(texto => texto.json()).then(usuarioData => dbUsuario = usuarioData[0]).then(x => this.setState({
+        id: dbUsuario.idUsuario
+      })).then(x => {
+        dbUsuario.password == password
+        /*arguments[2]*/
+        ? this.setState({
+          loginState: this.state.loginStates.LOGEDIN
+        }) : this.loginFail();
+      }).catch(error => {
+        console.log("se ha producido un error: ", error);
+        this.loginFail();
+      });
+    }
+
+    loginFail() {
+      console.log("Usuario o contraseña no validos");
+      this.setState({
+        id: 0,
+        loginState: this.state.loginStates.FAILED,
+        nombre: "",
+        password: ""
+      });
     }
 
     logOut() {
       this.setState({
-        id: 0
-      });
-      console.log("loged out");
-    }
-
-    logIn(idUsuario) {
-      this.setState({
-        id: idUsuario
+        id: 0,
+        loginState: this.state.loginStates.LOGEDOUT,
+        nombre: "",
+        password: ""
       });
     }
 
     render() {
-      return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_Login.default, {
-        logIn: this.logIn,
-        logOut: this.logOut
-      }), /*#__PURE__*/_react.default.createElement(_Cuerpo.default, null));
+      return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_Login.default, null));
     }
 
   }
@@ -29294,17 +29335,8 @@ try {
   class Login extends _react.default.Component {
     constructor(props) {
       super(props);
-
-      this.actualizaInputs = event => {
-        const value = event.target.value;
-        const name = event.target.name;
-        this.setState({
-          [name]: value
-        });
-      };
-
       this.state = {
-        loginState: "logedout",
+        loginState: "",
         loginStates: {
           LOGEDOUT: "logedout",
           FAILED: "failed",
@@ -29320,16 +29352,24 @@ try {
       this.loginFail = this.loginFail.bind(this);
     }
 
+    componentDidMount() {
+      this.setState({
+        loginState: this.state.loginStates.LOGEDOUT
+      });
+    }
+
     logIn() {
-      let usuarioData;
+      let dbUsuario;
       const opcions = {
         method: "GET",
         headers: HEADERS
       };
-      fetch(API_URL + "/findOne?_where=(nombre,eq," + this.state.nombre + ")", opcions).then(texto => texto.json()).then(dbUsuario => usuarioData = dbUsuario[0]).then(x => {
-        usuarioData.password == this.state.password ? this.setState({
+      fetch(API_URL + "/findOne?_where=(nombre,eq," + this.state.nombre + ")", opcions).then(texto => texto.json()).then(usuarioData => dbUsuario = usuarioData[0]).then(x => this.setState({
+        id: dbUsuario.idUsuario
+      })).then(x => {
+        dbUsuario.password == this.state.password ? this.setState({
           loginState: this.state.loginStates.LOGEDIN
-        }, this.props.logIn(usuarioData.idUsuario)) : this.loginFail();
+        }) : this.loginFail();
       }).catch(error => {
         console.log("se ha producido un error: ", error);
         this.loginFail();
@@ -29352,27 +29392,35 @@ try {
         nombre: '',
         password: '',
         loginState: this.state.loginStates.LOGEDOUT
-      });
-      this.props.logOut();
-      this.actualizaInputs;
+      }); //this.actualizaInputs;
     }
+    /*newUser() {
+        const usuario = {
+            nombre: this.state.nombre,
+            password: this.state.password
+        };
+         const opcions = {
+            method: "POST",
+            headers: HEADERS,
+            body: JSON.stringify(usuario)
+        };
+         fetch(API_URL, opcions)
+            .then(() => this.setState({
+                id: 0,
+                nombre: '',
+                password: ''
+            }))
+            .catch(error => console.log("se ha producido un error: ", error));
+    }*/
 
-    newUser() {
-      const usuario = {
-        nombre: this.state.nombre,
-        password: this.state.password
-      };
-      const opcions = {
-        method: "POST",
-        headers: HEADERS,
-        body: JSON.stringify(usuario)
-      };
-      fetch(API_URL, opcions).then(() => this.setState({
-        id: 0,
-        nombre: '',
-        password: ''
-      })).catch(error => console.log("se ha producido un error: ", error));
-    }
+    /*actualizaInputs = (event) => {
+        const value = event.target.value;
+        const name = event.target.name;
+        this.setState({
+            [name]: value
+        });
+    }*/
+
 
     render() {
       let login = /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null);
@@ -29386,7 +29434,6 @@ try {
           id: "nomInput",
           type: "text",
           value: this.state.nombre,
-          onChange: this.actualizaInputs,
           name: "nombre"
         }), /*#__PURE__*/_react.default.createElement(_reactstrap.Label, {
           for: "emailInput"
@@ -29394,7 +29441,6 @@ try {
           id: "emailInput",
           type: "password",
           value: this.state.password,
-          onChange: this.actualizaInputs,
           name: "password"
         }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_reactstrap.Button, {
           color: "success",

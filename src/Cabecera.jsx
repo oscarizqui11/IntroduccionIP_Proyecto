@@ -1,4 +1,4 @@
-import React from "react"; 
+/*import React from "react"; 
 import logo from "url:./TSSlogo.png";
 import './Estils.css';
 // npm i --save @fortawesome/pro-regular-svg-icons
@@ -107,11 +107,11 @@ render(){
     <div style={cabeceraFondo}>
     <img style={logoS} src={logo} /> 
 
-    <FontAwesomeIcon  style={icon} onClick={this.showMenu} icon={faUser}> </FontAwesomeIcon>
+    <FontAwesomeIcon  style={icon} onClick={this.showMenu} icon={faUser}> </FontAwesomeIcon>*/
 
     {/* <button onClick={this.showMenu}>boton menu</button> */}
 
-        {
+        {/*
           this.state.showMenu
             ? (
 
@@ -140,4 +140,4 @@ render(){
 
 
 
-export default Cabecera;
+export default Cabecera;*/}
