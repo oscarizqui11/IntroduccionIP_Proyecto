@@ -96,16 +96,26 @@ render(){
     left:'31%',
     background:'white',
     position:'absolute',
-    padding:'5px',
+    padding:'3px 5px',  
+}
 
-
+ const titulo={
+    color:'#345c9c',
+    position:'absolute',
+    top:'40px',
+    fontSize:'30px',
+    left:'140px',
+    fontFamily: 'Roboto',
   }
-
 
 
   return(
     <div style={cabeceraFondo}>
     <img style={logoS} src={logo} /> 
+    <div style={titulo}>The Safe Sightseeing</div>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+    </style>
 
     <FontAwesomeIcon  style={icon} onClick={this.showMenu} icon={faUser}> </FontAwesomeIcon>*/
 
