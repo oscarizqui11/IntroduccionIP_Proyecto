@@ -45748,7 +45748,8 @@ try {
 
     cargaUsuario() {
       this.setState({
-        idUsuario: this.props.idUsuario
+        idUsuario: this.props.idUsuario,
+        usuario: datos[0].nombre
       });
     }
 
@@ -45839,7 +45840,7 @@ try {
         style: {
           fontWeight: "bold"
         }
-      }, el.nombre), /*#__PURE__*/_react.default.createElement("br", null), el.texto)));
+      }, "Ususario"), /*#__PURE__*/_react.default.createElement("br", null), el.texto)));
       return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, this.state.lista.length === 0 ? /*#__PURE__*/_react.default.createElement("h5", null, "Se el primero en comentar!") : listaComentarios, /*#__PURE__*/_react.default.createElement("br", null), this.state.idUsuario > 0 ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h3", null, "Guarda tu comentario"), /*#__PURE__*/_react.default.createElement("div", {
         className: "inputs"
       }, /*#__PURE__*/_react.default.createElement(_reactstrap.Label, {

@@ -3,9 +3,9 @@ import { Table, Button, Form, FormGroup, Label, Input, FormFeedback } from "reac
 
 
 const MODEL = 'comentarios';
+const MODEL_VIEW = 'comentarioswithuser';
 
-const API_URL = "http://localhost:3000/api/" + MODEL;
-const USER_URL = "http://localhost:3000/api/usuarios/";
+const API_URL = "http://localhost:3000/api/";
 
 const HEADERS = new Headers({
     'Accept': 'application/json',
@@ -37,21 +37,7 @@ class Comentario extends React.Component {
     }*/
 
     cargaUsuario() {
-        if (this.props.idUsuario != 0) {
-            const opcions = {
-                method: "GET",
-                headers: HEADERS,
-            };
-
-            fetch(USER_URL + this.props.idUsuario, opcions)
-                .then(texto => texto.json())
-                .then(datos => this.setState({ idUsuario: this.props.idUsuario, usuario: datos[0].nombre }))
-                .then(console.log(this.state.usuario))
-                .catch(error => console.log("se ha producido un error: ", error));
-        }
-        else {
-            this.setState({ idUsuario: 0, usuario: '' })
-        }
+        this.setState({ idUsuario: this.props.idUsuario })
     }
 
     cargaDatos() {
@@ -60,7 +46,7 @@ class Comentario extends React.Component {
             headers: HEADERS,
         };
 
-        fetch(API_URL + "?_where=(distritos_iddistritos,eq," + this.props.idDistrito + ")", opcions)
+        fetch(API_URL + MODEL_VIEW + "?_where=(distritos_iddistritos,eq," + this.props.idDistrito + ")", opcions)
             .then(texto => texto.json())
             .then(datos => this.setState({ lista: datos, idDistrito: this.props.idDistrito }))
             .catch(error => console.log("se ha producido un error: ", error));
@@ -82,7 +68,7 @@ class Comentario extends React.Component {
             body: JSON.stringify(comentario)
         };
 
-        fetch(API_URL, opcions)
+        fetch(API_URL + MODEL, opcions)
             // .then(respuesta => respuesta.json())
             // .then(ddd => console.log(ddd))
             .then(() => this.cargaDatos())
@@ -155,7 +141,7 @@ class Comentario extends React.Component {
 
         const listaComentarios = this.state.lista.map((el, i) => (
             <div style={{ marginTop: "20px" }} key={i}>
-                <span><span style={{ fontWeight: "bold" }}>{console.log(this.getNamefromID(el))}</span><br></br>{el.texto}</span>
+                <span><span style={{ fontWeight: "bold" }}>{el.nombre}</span><br></br>{el.texto}</span>
 
                 {/*                 <td><Button disabled={el.usuarioid != this.state.usuarioid} onClick={() => this.borrar(el.idcomentarios)}>Borrar</Button></td>
  */}

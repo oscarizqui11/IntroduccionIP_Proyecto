@@ -29410,14 +29410,18 @@ try {
       if (this.state.loginState != this.state.loginStates.LOGEDIN) {
         login = /*#__PURE__*/_react.default.createElement("div", {
           className: "inputs"
-        }, /*#__PURE__*/_react.default.createElement(_reactstrap.Input, {
+        }, /*#__PURE__*/_react.default.createElement(_reactstrap.Label, {
+          for: "nomInput"
+        }, "Nombre"), /*#__PURE__*/_react.default.createElement(_reactstrap.Input, {
           id: "nomInput",
           type: "text",
           value: this.state.nombre,
           placeholder: "Nombre",
           onChange: this.actualizaInputs,
           name: "nombre"
-        }), /*#__PURE__*/_react.default.createElement(_reactstrap.Input, {
+        }), /*#__PURE__*/_react.default.createElement(_reactstrap.Label, {
+          for: "emailInput"
+        }, "Password"), /*#__PURE__*/_react.default.createElement(_reactstrap.Input, {
           id: "emailInput",
           type: "password",
           value: this.state.password,
