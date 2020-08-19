@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Comentario from "./Comentario"
 
 class Distrito extends Component {
 
@@ -10,6 +11,7 @@ class Distrito extends Component {
         return (
             <>
                 <h2>{this.props.distrito}</h2>
+                <Comentario idUsuario={this.props.idUsuario} idDistrito={this.props.idDistrito} />
             </>
         )
     }

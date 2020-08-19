@@ -43,7 +43,7 @@ class Login extends React.Component {
         fetch(API_URL + "/findOne?_where=(nombre,eq," + this.state.nombre + ")", opcions)
             .then(texto => texto.json())
             .then(dbUsuario => usuarioData = dbUsuario[0])
-            .then(x => { usuarioData.password == this.state.password ? this.setState({ loginState: this.state.loginStates.LOGEDIN }, this.props.logIn(usuarioData.idUsuario)) : this.loginFail() })
+            .then(x => { usuarioData.password == this.state.password ? this.setState({ loginState: this.state.loginStates.LOGEDIN }, this.props.logIn(usuarioData.idusuarios)) : this.loginFail() })
             .catch(error => {
                 console.log("se ha producido un error: ", error)
                 this.loginFail()
@@ -107,18 +107,18 @@ class Login extends React.Component {
         if (this.state.loginState != this.state.loginStates.LOGEDIN) {
             login =
                 <div className="inputs">
-                    <Label for="nomInput">Nombre</Label>
-                    <Input id="nomInput" type="text" value={this.state.nombre} onChange={this.actualizaInputs} name="nombre" />
-                    <Label for="emailInput">Password</Label>
-                    <Input id="emailInput" type="password" value={this.state.password} onChange={this.actualizaInputs} name="password" />
+{/*                     <Label for="nomInput">Nombre</Label> */}
+                    <Input id="nomInput" type="text" value={this.state.nombre} placeholder="Nombre" onChange={this.actualizaInputs} name="nombre" />
+                    {/* <Label for="emailInput">Password</Label> */}
+                    <Input id="emailInput" type="password" value={this.state.password} placeholder="Contraseña" onChange={this.actualizaInputs} name="password" />
                     <br />
-
-                    <Button color="success" onClick={this.logIn}>Login</Button>
 
                     {
                         this.state.loginState == this.state.loginStates.FAILED ?
                             <p className="errorLogin">Usuario o contraseña no validos.</p> : <></>
                     }
+
+                    <Button color="success" onClick={this.logIn}>Login</Button>                    
                 </div>
         }
         else {

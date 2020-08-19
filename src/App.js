@@ -34,13 +34,15 @@ class App extends React.Component {
 
   logIn(idUsuario){
     this.setState({ id: idUsuario })
+    console.log(this.state.id)
   }
 
   render() {
     return (
       <>
-        <Login logIn={this.logIn} logOut={this.logOut}/>
-        <Cuerpo />
+        <Cabecera logIn={this.logIn} logOut={this.logOut}/>
+        {/* <Login logIn={this.logIn} logOut={this.logOut}/> */}
+        <Cuerpo idUsuario={this.state.id}/>
       </>
     )
   }

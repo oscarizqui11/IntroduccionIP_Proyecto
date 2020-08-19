@@ -17,7 +17,8 @@ class Ciudad extends Component {
         super(props);
         this.state = {
             lista: [],
-            distrito: ""
+            distrito: "",
+            idDistrito: 0,
         }
         this.cargaDatos = this.cargaDatos.bind(this);
         this.selectDistrito = this.selectDistrito.bind(this);
@@ -36,13 +37,14 @@ class Ciudad extends Component {
         fetch(API_URL + "?_sort=numDistrito", options)
             .then(texto => texto.json())
             .then(datos => this.setState({ lista: datos }))
-            .then(d => this.setState({ distrito: this.state.lista[0].nombre }))
+            .then(d => this.setState({ distrito: this.state.lista[0].nombre, idDistrito: this.state.lista[0].iddistritos }))
             .catch(error => console.log("se ha producido un error: ", error));
     }
 
     selectDistrito(distrito) {
         this.setState({
-            distrito: distrito.nombre
+            distrito: distrito.nombre,
+            idDistrito: distrito.iddistritos
         })
     }
 
@@ -63,7 +65,7 @@ class Ciudad extends Component {
                     </thead>
                 </Table>
 
-                <Distrito distrito={this.state.distrito} />
+                <Distrito idUsuario={this.props.idUsuario} distrito={this.state.distrito} idDistrito={this.state.idDistrito} />
             </>
         )
     }

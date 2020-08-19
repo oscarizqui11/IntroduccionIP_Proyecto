@@ -1,10 +1,10 @@
-/*import React from "react"; 
-import logo from "url:./TSSlogo.png";
-import './Estils.css';
+import React from "react"; 
+import logo from "url:./TSS logo-01.png";
 // npm i --save @fortawesome/pro-regular-svg-icons
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import Login from "./Login"
 
 class Cabecera extends React.Component{
   constructor(){
@@ -42,11 +42,11 @@ render(){
   const cabeceraFondo={
     background:'#9ccfe25e',
     width:'100%',
-    height:'130px',
+    height:'10%',
   }
 
   const logoS={
-    width:'80px',
+    width:'6%',
     padding:'15px 0px 20px 35px',
   }
 
@@ -117,25 +117,28 @@ render(){
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
     </style>
 
-    <FontAwesomeIcon  style={icon} onClick={this.showMenu} icon={faUser}> </FontAwesomeIcon>*/
+    <Login logIn={this.props.logIn} logOut={this.props.logOut}/>
 
-    {/* <button onClick={this.showMenu}>boton menu</button> */}
+    <FontAwesomeIcon  style={icon} onClick={this.showMenu} icon={faUser}> </FontAwesomeIcon>
 
-        {/*
-          this.state.showMenu
+{/*     <button onClick={this.showMenu}>boton menu</button>
+ */}
+        
+          {this.state.showMenu
             ? (
 
               <div style={menu}  ref={(element)=>{
                 this.dropdownMenu=element;
               }} >
-                <label style={introduce} field="Introduce Usuario">nombreeeee</label>
+                {/* <label style={introduce} field="Introduce Usuario">nombreeeee</label>
                 <label style={introduce2} placeholder="Introduce Contrasenya">contra</label>
-                <button style={iniciSessio}>Entrar</button>
+                <button style={iniciSessio}>Entrar</button> */}
 
                 <ul style={{listStyle:'none', padding:'0px'}}>
-                  <li>Modificar usuario</li>
+                  {/* <li>Modificar usuario</li>
                   <li>Modificar contraseña</li>
-                  <li>Cerrar sessión</li>
+                  <li>Cerrar sessión</li> */}
+                  <Login logIn={this.props.logIn} logOut={this.props.logOut}/>
                 </ul>
               </div>
             )
@@ -150,4 +153,4 @@ render(){
 
 
 
-export default Cabecera;*/}
+export default Cabecera;
