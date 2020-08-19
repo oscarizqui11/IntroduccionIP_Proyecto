@@ -1,5 +1,6 @@
 import React from 'react';
 import Ciudad from './Ciudad';
+import "./styleDistrito.css"
 
 class Cuerpo extends React.Component{
   constructor(props){
@@ -9,7 +10,8 @@ class Cuerpo extends React.Component{
   render(){
     return(
       <>
-      <Ciudad idUsuario={this.props.idUsuario}/>
+      <div className="styleTitulos"><Ciudad idUsuario={this.props.idUsuario}/></div>
+      
       {/*<Distrito />*/}
     </>
     )

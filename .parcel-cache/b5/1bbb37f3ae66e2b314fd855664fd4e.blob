@@ -1,0 +1,46 @@
+"use strict";
+
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+
+try {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = void 0;
+
+  var _react = _interopRequireDefault(require("react"));
+
+  var _reactstrap = require("reactstrap");
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  //npm install bootstrap
+  //en el indice:  import 'bootstrap/dist/css/bootstrap.css';
+  const Comentarios = props => {
+    return /*#__PURE__*/_react.default.createElement(_reactstrap.Row, null, /*#__PURE__*/_react.default.createElement(_reactstrap.Col, {
+      sm: "6"
+    }, /*#__PURE__*/_react.default.createElement(_reactstrap.Card, {
+      body: true
+    }, /*#__PURE__*/_react.default.createElement(_reactstrap.CardTitle, null, "Titulo del Comentario"), /*#__PURE__*/_react.default.createElement(_reactstrap.CardText, null, "En el Distrito 1, es decir, Ciutat Vella sobretodo dentro de Ciudadella suelen robar mucho al despiste. Mucha gente se estira en el cesped del parque y los carteristas aprovechan esto para llevarse los bolsos de la gente. Tengan cuidado!"), /*#__PURE__*/_react.default.createElement(_reactstrap.Button, null, "Like"))), /*#__PURE__*/_react.default.createElement(_reactstrap.Col, {
+      sm: "6"
+    }, /*#__PURE__*/_react.default.createElement(_reactstrap.Card, {
+      body: true
+    }, /*#__PURE__*/_react.default.createElement(_reactstrap.CardTitle, null, "Titulo del otro comentario"), /*#__PURE__*/_react.default.createElement(_reactstrap.CardText, null, "Es un distrito precioso, con mucho encanto, me encantan todos sus barrios pero es cierto que hay que tener cuidado y tener el bolso vigilado porque roban bastante al turista."), /*#__PURE__*/_react.default.createElement(_reactstrap.Button, null, "Like"))));
+  };
+
+  _c = Comentarios;
+  var _default = Comentarios;
+  exports.default = _default;
+
+  var _c;
+
+  $RefreshReg$(_c, "Comentarios");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Table } from 'reactstrap';
 import Distrito from './Distrito';
+import "./styleDistrito.css"
 
 const MODEL = 'distritos';
 

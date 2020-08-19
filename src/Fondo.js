@@ -11,7 +11,8 @@ let styleFondo = {
   backgroundRepeat: 'noRepeat',
   backgroundSize: '100%',
   opacity: '0.4',
-  position: 'absolute'
+  position: 'absolute',
+  zIndex: '-1'
 
 }
 

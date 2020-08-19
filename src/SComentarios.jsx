@@ -22,6 +22,7 @@ const Comentarios = (props) => {
         </Card>
       </Col>
     </Row>
+    
   );
 };
 

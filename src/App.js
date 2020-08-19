@@ -4,6 +4,8 @@ import Alumnes from "./Alumnes";
 import Ciudad from './Ciudad';
 import Cuerpo from "./Cuerpo";
 import Cabecera from "./Cabecera"
+import Fondo from "./Fondo"
+import SComentarios from "./SComentarios"
 
 const API_URL = "http://localhost:3000/api/";
 
@@ -40,9 +42,13 @@ class App extends React.Component {
   render() {
     return (
       <>
+        
         <Cabecera logIn={this.logIn} logOut={this.logOut}/>
         {/* <Login logIn={this.logIn} logOut={this.logOut}/> */}
+        <Fondo />
         <Cuerpo idUsuario={this.state.id}/>
+        <SComentarios />
+        
       </>
     )
   }

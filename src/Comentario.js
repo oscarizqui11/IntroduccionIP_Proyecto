@@ -1,5 +1,8 @@
 import React from 'react';
-import { Table, Button, Form, FormGroup, Label, Input, FormFeedback } from "reactstrap";
+import { Table, Form, FormGroup, Label, Input, FormFeedback } from "reactstrap";
+import { Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import "./styleDistrito.css"
+
 
 
 const MODEL = 'comentarios';
@@ -104,7 +107,7 @@ class Comentario extends React.Component {
 
     }*/
 
-    getNamefromID(comentario){
+    getNamefromID(comentario) {
         let userName;
 
         const opcions = {
@@ -113,13 +116,13 @@ class Comentario extends React.Component {
         };
 
         fetch(USER_URL + comentario.usuarios_idusuarios, opcions)
-        .then(texto => texto.json())
-        .then(userObj => userName = userObj[0].nombre)
-        .then(nombreUsuario=> {
-            console.log(nombreUsuario);
-            return nombreUsuario;
-        })
-        .catch(error => console.log("se ha producido un error: ", error));     
+            .then(texto => texto.json())
+            .then(userObj => userName = userObj[0].nombre)
+            .then(nombreUsuario => {
+                console.log(nombreUsuario);
+                return nombreUsuario;
+            })
+            .catch(error => console.log("se ha producido un error: ", error));
     }
 
 
@@ -140,20 +143,25 @@ class Comentario extends React.Component {
         } */
 
         const listaComentarios = this.state.lista.map((el, i) => (
-            <div style={{ marginTop: "20px" }} key={i}>
-                <span><span style={{ fontWeight: "bold" }}>{el.nombre}</span><br></br>{el.texto}</span>
-
-                {/*                 <td><Button disabled={el.usuarioid != this.state.usuarioid} onClick={() => this.borrar(el.idcomentarios)}>Borrar</Button></td>
- */}
-            </div>
+            <Col key={i} sm="6">
+                <Card body>
+                    <CardTitle><span className="nombreComentario">{el.nombre}</span></CardTitle>
+                    <CardText>{el.texto}</CardText>
+                    <Button>Like</Button>
+                </Card>
+            </Col>
         ));
+
+        {/* <div style={{ marginTop: "20px" }} key={i}>
+            <span><span style={{ fontWeight: "bold" }}>{el.nombre}</span><br></br>{el.texto}</span>
+        </div> */}
 
         return (
 
             <>
                 {/*             <h1>{MODEL}</h1>
  */}
-                {(this.state.lista.length === 0) ? <h5>Se el primero en comentar!</h5> : listaComentarios}
+                {(this.state.lista.length === 0) ? <h5>Se el primero en comentar!</h5> : <Row>{listaComentarios}</Row>}
 
                 <br></br>
 
