@@ -15,7 +15,7 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loginState: "logedout",
+            loginState: "",
             loginStates: {
                 LOGEDOUT: "logedout",
                 FAILED: "failed",
@@ -31,6 +31,11 @@ class Login extends React.Component {
         this.loginFail = this.loginFail.bind(this);
     }
 
+    componentDidMount() {
+        (this.props.idUsuario > 0) ? this.setState({ loginState: this.state.loginStates.LOGEDIN }) : this.setState({ loginState: this.state.loginStates.LOGEDOUT });
+        console.log(this.props.idUsuario)
+    }
+
     logIn() {
 
         let usuarioData;
@@ -43,7 +48,7 @@ class Login extends React.Component {
         fetch(API_URL + "/findOne?_where=(nombre,eq," + this.state.nombre + ")", opcions)
             .then(texto => texto.json())
             .then(dbUsuario => usuarioData = dbUsuario[0])
-            .then(x => { usuarioData.password == this.state.password ? this.setState({ loginState: this.state.loginStates.LOGEDIN }, this.props.logIn(usuarioData.idusuarios)) : this.loginFail() })
+            .then(x => { usuarioData.password == this.state.password ? this.setState({ loginState: this.state.loginStates.LOGEDIN }, this.props.logIn(usuarioData.idusuarios, usuarioData.nombre)) : this.loginFail() })
             .catch(error => {
                 console.log("se ha producido un error: ", error)
                 this.loginFail()
@@ -107,9 +112,9 @@ class Login extends React.Component {
         if (this.state.loginState != this.state.loginStates.LOGEDIN) {
             login =
                 <div className="inputs">
-{/*                     <Label for="nomInput">Nombre</Label> */}
+                    <Label for="nomInput">Nombre</Label>
                     <Input id="nomInput" type="text" value={this.state.nombre} placeholder="Nombre" onChange={this.actualizaInputs} name="nombre" />
-                    {/* <Label for="emailInput">Password</Label> */}
+                    <Label for="emailInput" style={{marginTop: '10px'}}>Contraseña</Label>
                     <Input id="emailInput" type="password" value={this.state.password} placeholder="Contraseña" onChange={this.actualizaInputs} name="password" />
                     <br />
 
@@ -118,13 +123,13 @@ class Login extends React.Component {
                             <p className="errorLogin">Usuario o contraseña no validos.</p> : <></>
                     }
 
-                    <Button color="success" onClick={this.logIn}>Login</Button>                    
+                    <Button color="success" onClick={this.logIn}>Login</Button>
                 </div>
         }
         else {
             login =
                 <div>
-                    <h3>Usuario {this.state.nombre}</h3>
+                    {/* <h3>Usuario {this.props.nombreUsuario}</h3> */}
                     <Button style={{ marginLeft: "10px" }} color="danger" onClick={this.logOut}>Logout</Button>
                 </div>
         }
