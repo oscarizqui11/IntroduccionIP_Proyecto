@@ -1,7 +1,0 @@
-.inputs{
-    width: 500px;
-}
-
-.errorLogin{
-    color: red;
-}
