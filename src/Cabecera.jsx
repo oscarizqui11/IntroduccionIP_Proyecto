@@ -60,8 +60,17 @@ class Cabecera extends React.Component {
       fontFamily: 'sans-serif'
     }
 
-    const icon = {
+    const iconOff = {
       color: '#345c9c',
+      fontSize: '50px',
+      position: 'absolute',
+      right: '80px',
+      top: '40px',
+
+    }
+
+    const iconOn = {
+      color: '#00bb2d',
       fontSize: '50px',
       position: 'absolute',
       right: '80px',
@@ -131,38 +140,40 @@ class Cabecera extends React.Component {
 
         {/* <Login logIn={this.props.logIn} logOut={this.props.logOut}/> */}
 
-        <FontAwesomeIcon style={icon} onClick={this.showMenu} icon={faUser}> </FontAwesomeIcon>
-
+        {this.props.idUsuario > 0?
+          < FontAwesomeIcon style={iconOn} onClick={this.showMenu} icon={faUser}> </FontAwesomeIcon>:
+          < FontAwesomeIcon style={iconOff} onClick={this.showMenu} icon={faUser}> </FontAwesomeIcon>  }
         {/*     <button onClick={this.showMenu}>boton menu</button>
  */}
 
-        {this.state.showMenu
-          ? (
+{
+  this.state.showMenu
+  ? (
 
-            <div style={menu} ref={(element) => {
-              this.dropdownMenu = element;
-            }} >
-              {/* <label style={introduce} field="Introduce Usuario">nombreeeee</label>
+    <div style={menu} ref={(element) => {
+      this.dropdownMenu = element;
+    }} >
+      {/* <label style={introduce} field="Introduce Usuario">nombreeeee</label>
                 <label style={introduce2} placeholder="Introduce Contrasenya">contra</label>
                 <button style={iniciSessio}>Entrar</button> */}
 
-              <ul style={{ listStyle: 'none', padding: '0px' }}>
-                {this.props.idUsuario > 0 ?
-                  <>
-                    <li>Modificar usuario</li>
-                    <li>Modificar contraseña</li>
-                    <li>Cerrar sessión</li>
-                  </> :<></>                  
-                }
-                <Login idUsuario={this.props.idUsuario} nombreUsuario={this.props.nombreUsuario} logIn={this.props.logIn} logOut={this.props.logOut} />
-              </ul>
-            </div>
-          )
-          : (
-            null
-          )
+      <ul style={{ listStyle: 'none', padding: '0px' }}>
+        {this.props.idUsuario > 0 ?
+          <>
+            <li>Modificar usuario</li>
+            <li>Modificar contraseña</li>
+            <li>Cerrar sessión</li>
+          </> : <></>
         }
-      </div>
+        <Login idUsuario={this.props.idUsuario} nombreUsuario={this.props.nombreUsuario} logIn={this.props.logIn} logOut={this.props.logOut} />
+      </ul>
+    </div>
+  )
+  : (
+    null
+  )
+}
+      </div >
     )
   }
 }

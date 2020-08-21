@@ -10,7 +10,7 @@ class Cuerpo extends React.Component{
   render(){
     return(
       <>
-      <div className="styleTitulos"><Ciudad idUsuario={this.props.idUsuario}/></div>
+      <div className="styleTitulos"><Ciudad idUsuario={this.props.idUsuario} nombreUsuario={this.props.nombreUsuario}/></div>
       
       {/*<Distrito />*/}
     </>

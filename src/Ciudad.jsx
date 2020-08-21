@@ -66,7 +66,7 @@ class Ciudad extends Component {
                     </thead>
                 </Table>
 
-                <Distrito idUsuario={this.props.idUsuario} distrito={this.state.distrito} idDistrito={this.state.idDistrito} />
+                <Distrito idUsuario={this.props.idUsuario} nombreUsuario={this.props.nombreUsuario} distrito={this.state.distrito} idDistrito={this.state.idDistrito} />
             </>
         )
     }

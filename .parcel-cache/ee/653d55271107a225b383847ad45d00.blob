@@ -1,0 +1,177 @@
+"use strict";
+
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+
+try {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = void 0;
+
+  var _react = _interopRequireWildcard(require("react"));
+
+  var _Comentario = _interopRequireDefault(require("./Comentario"));
+
+  require("./styleDistrito.css");
+
+  var _mapabcn = _interopRequireDefault(require("url:./mapabcn.png"));
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+  function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+  class Distrito extends _react.Component {
+    constructor(props) {
+      super(props);
+    }
+
+    render() {
+      let informacion;
+
+      switch (this.props.distrito) {
+        case "Ciutat Vella":
+          informacion = /*#__PURE__*/_react.default.createElement("div", {
+            className: "columnas"
+          }, /*#__PURE__*/_react.default.createElement("div", {
+            className: "syleIzquierda"
+          }), /*#__PURE__*/_react.default.createElement("div", {
+            className: "styleMedio"
+          }, /*#__PURE__*/_react.default.createElement("img", {
+            className: "styleMapa",
+            src: _mapabcn.default
+          }), /*#__PURE__*/_react.default.createElement("h1", {
+            className: "styleTitulos"
+          }, "Distrito 1: Ciutat Vella"), /*#__PURE__*/_react.default.createElement("h2", {
+            className: "styleTitulos"
+          }, "Seguridad"), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "La seguridad en este distrito es.... "), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "El distrito de Ciutat Vella está delimitado por el perímetro de la muralla de la antigua ciudad y se corresponde geográficamente con el centro histórico de Barcelona."), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "Ciutat Vella es el primer distrito de Barcelona, el embrión de la ciudad. Por lo tanto, hablar de Ciutat Vella es hablar de la historia de la ciudad desde sus inicios. El distrito limita al oeste con L’Eixample, al este con el mar Mediterráneo, al norte con Sant Martí y al sur con Sants-Montjuïc. Ciutat Vella está formada por cuatro barrios, cada cual con una singularidad propia. En el sur encontramos la Barceloneta; en poniente, el Raval; en el centro, el Gòtic; y en levante, Sant Pere, Santa Caterina i la Ribera."), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "Ciutat Vella es un distrito que lo ofrece todo: cultura, patrimonio, historia, vecindad y entretenimiento. Le invitamos a conocer cada uno de sus barrios."), /*#__PURE__*/_react.default.createElement("h1", {
+            className: "styleTitulos"
+          }, "Comentarios")), /*#__PURE__*/_react.default.createElement("div", {
+            className: "styleDerecha"
+          }));
+          break;
+
+        case "Eixample":
+          informacion = /*#__PURE__*/_react.default.createElement("div", {
+            className: "columnas"
+          }, /*#__PURE__*/_react.default.createElement("div", {
+            className: "syleIzquierda"
+          }), /*#__PURE__*/_react.default.createElement("div", {
+            className: "styleMedio"
+          }, /*#__PURE__*/_react.default.createElement("img", {
+            className: "styleMapa",
+            src: _mapabcn.default
+          }), /*#__PURE__*/_react.default.createElement("h1", {
+            className: "styleTitulos"
+          }, "Distrito 2: Eixample"), /*#__PURE__*/_react.default.createElement("h2", {
+            className: "styleTitulos"
+          }, "Seguridad"), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "La seguridad en este distrito es.... "), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "La Barcelona moderna nació en L’Eixample, ideada por el ingeniero y urbanista a quien debe su dibujo mágico y único: Ildefons Cerdà. Con su plan urbanístico, Cerdà diseñó una ciudad igualitaria, donde no se diferencian unos barrios de los demás y los servicios públicos se reparten uniformemente por todos los rincones."), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "El distrito es fruto de uno de los momentos más esplendorosos de la historia de la ciudad, cuando se configura definitivamente como el motor de la Cataluña contemporánea y rompe con el pasado medieval derribando las murallas. L’Eixample se construyó en los años de la industrialización de Cataluña, a finales del siglo XIX y comienzos del XX. La parte central, la Dreta de l’Eixample, fue el barrio de la burguesía que introdujo en su casa un estilo propio, el modernismo."), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "L’Eixample está formado por seis barrios: la Dreta de l’Eixample, la Antiga Esquerra de l’Eixample, la Nova Esquerra de l’Eixample, el Fort Pienc, la Sagrada Família y Sant Antoni."), /*#__PURE__*/_react.default.createElement("h1", {
+            className: "styleTitulos"
+          }, "Seguridad")), /*#__PURE__*/_react.default.createElement("div", {
+            className: "styleDerecha"
+          }));
+          break;
+
+        case "Sants-Montjuïc":
+          informacion = /*#__PURE__*/_react.default.createElement("div", {
+            className: "columnas"
+          }, /*#__PURE__*/_react.default.createElement("div", {
+            className: "syleIzquierda"
+          }), /*#__PURE__*/_react.default.createElement("div", {
+            className: "styleMedio"
+          }, /*#__PURE__*/_react.default.createElement("img", {
+            className: "styleMapa",
+            src: _mapabcn.default
+          }), /*#__PURE__*/_react.default.createElement("h1", {
+            className: "styleTitulos"
+          }, "Distrito 3: Sants-Montjuïc"), /*#__PURE__*/_react.default.createElement("h2", {
+            className: "styleTitulos"
+          }, "Seguridad"), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "La seguridad en este distrito es.... "), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "El distrito de Sants-Montjuïc es el más extenso de Barcelona, con una superficie de 2.090 hectáreas, que representa casi la cuarta parte del término municipal de Barcelona."), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "Esta heterogeneidad del territorio se traduce en una gran diversidad social y humana. La extensión real del distrito es muy inferior si se excluyen las zonas no habitadas, como el puerto de Barcelona, el polígono industrial de la Zona Franca y buena parte de la montaña de Montjuïc."), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "Los límites de Sants-Montjuïc son, por una parte, los términos municipales de L’Hospitalet de Llobregat y El Prat de Llobregat, y por la otra, en Barcelona, la avenida de Madrid y la calle de Berlín, que lo separan de Les Corts, y las calles de Numància y Tarragona y las avenidas de Josep Tarradellas y el Paral·lel, que lo separan de L’Eixample, Ciutat Vella y el mar."), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "Sants-Montjuïc está formado por ocho barrios: el Poble-sec, Hostafrancs, la Bordeta, la Font de la Guatlla, la Marina de Port, la Marina del Prat Vermell, Sants y Sants-Badal."), /*#__PURE__*/_react.default.createElement("h1", {
+            className: "styleTitulos"
+          }, "Seguridad")), /*#__PURE__*/_react.default.createElement("div", {
+            className: "styleDerecha"
+          }));
+          break;
+
+        case "Sants-Montjuïc":
+          informacion = /*#__PURE__*/_react.default.createElement("div", {
+            className: "columnas"
+          }, /*#__PURE__*/_react.default.createElement("div", {
+            className: "syleIzquierda"
+          }), /*#__PURE__*/_react.default.createElement("div", {
+            className: "styleMedio"
+          }, /*#__PURE__*/_react.default.createElement("img", {
+            className: "styleMapa",
+            src: _mapabcn.default
+          }), /*#__PURE__*/_react.default.createElement("h1", {
+            className: "styleTitulos"
+          }, "Distrito 4: Les Corts"), /*#__PURE__*/_react.default.createElement("h2", {
+            className: "styleTitulos"
+          }, "Seguridad"), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "La seguridad en este distrito es.... "), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "Los barrios que componen el distrito de Les Corts son una de las puertas de entrada de Barcelona, gracias a su situación en el sector suroeste de la ciudad y con el eje de la Diagonal que lo vertebra de punta a punta. Limita al sur con Esplugues de Llobregat y con L’Hospitalet de Llobregat; al norte, con los distritos de Sarrià-Sant Gervasi y de L’Eixample; al este, con el distrito de Sants-Montjuïc; y al oeste, con la sierra de Collserola."), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "Actualmente, el distrito de Les Corts está formado por tres barrios: Les Corts, Pedralbes y la Maternitat i Sant Ramon."), /*#__PURE__*/_react.default.createElement("h1", {
+            className: "styleTitulos"
+          }, "Seguridad")), /*#__PURE__*/_react.default.createElement("div", {
+            className: "styleDerecha"
+          }));
+          break;
+
+        default:
+          /*#__PURE__*/
+          _react.default.createElement("p", {
+            className: "styleInfo"
+          }, "");
+
+          break;
+      }
+
+      return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h2", null, this.props.distrito), informacion, /*#__PURE__*/_react.default.createElement(_Comentario.default, {
+        idUsuario: this.props.idUsuario,
+        idDistrito: this.props.idDistrito
+      }));
+    }
+
+  }
+
+  var _default = Distrito;
+  exports.default = _default;
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}

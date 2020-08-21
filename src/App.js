@@ -36,7 +36,7 @@ class App extends React.Component {
 
   logIn(idUsuario, nombreUsuario){
     this.setState({ id: idUsuario, nombre: nombreUsuario })
-    console.log(this.state.nombre)
+    /* console.log(this.state.nombre) */
   }
 
   render() {
@@ -46,7 +46,7 @@ class App extends React.Component {
         <Cabecera idUsuario={this.state.id} nombreUsuario={this.state.nombre} logIn={this.logIn} logOut={this.logOut}/>
         {/* <Login logIn={this.logIn} logOut={this.logOut}/> */}
         
-        <Cuerpo idUsuario={this.state.id}/>
+        <Cuerpo idUsuario={this.state.id} nombreUsuario={this.state.nombre}/>
         <SComentarios />
         
       </>

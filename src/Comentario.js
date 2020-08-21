@@ -31,7 +31,7 @@ class Comentario extends React.Component {
         this.cargaDatos = this.cargaDatos.bind(this);
         this.cargaUsuario = this.cargaUsuario.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.getNamefromID = this.getNamefromID.bind(this);
+        //this.getNamefromID = this.getNamefromID.bind(this);
         //this.Borrar = this.Borrar.bind(this);
     }
 
@@ -107,7 +107,7 @@ class Comentario extends React.Component {
 
     }*/
 
-    getNamefromID(comentario) {
+    /* getNamefromID(comentario) {
         let userName;
 
         const opcions = {
@@ -123,7 +123,7 @@ class Comentario extends React.Component {
                 return nombreUsuario;
             })
             .catch(error => console.log("se ha producido un error: ", error));
-    }
+    } */
 
 
 
@@ -137,45 +137,40 @@ class Comentario extends React.Component {
             this.cargaUsuario();
         }
 
-        /* if (this.state.lista.length === 0) {
-            console.log("cargando coments")
-            return <h3>Loading comments</h3>
-        } */
-
         const listaComentarios = this.state.lista.map((el, i) => (
             <Col key={i} sm="6">
                 <Card body>
-                    <CardTitle><span className="nombreComentario">{el.nombre}</span></CardTitle>
-                    <CardText>{el.texto}</CardText>
+                    <CardTitle><h5><div className="nombreComentario">{el.nombre}</div></h5></CardTitle>
+                    <CardText><div className="textoComentario">{el.texto}</div></CardText>
                     <Button>Like</Button>
                 </Card>
             </Col>
         ));
 
-        {/* <div style={{ marginTop: "20px" }} key={i}>
-            <span><span style={{ fontWeight: "bold" }}>{el.nombre}</span><br></br>{el.texto}</span>
-        </div> */}
-
         return (
-
             <>
-                {/*             <h1>{MODEL}</h1>
- */}
-                {(this.state.lista.length === 0) ? <h5>Se el primero en comentar!</h5> : <Row>{listaComentarios}</Row>}
+                {(this.state.idUsuario > 0) ?
+                    <>
+                        <Col sm="6">
+                            
+                            <div className="comentarioArea">
+                            <h3>Comparte tu experiencia</h3>
+                                {/* <Label for="ComentInput">Comentario</Label>
+                            <Input type="textarea" name="comentario" value={this.state.comentario} onChange={this.handleChange} />
+                            <br /> */}
+                                <Card body>
+                                    <CardTitle><h5><div className="nombreComentario">{this.props.nombreUsuario}</div></h5></CardTitle>
+                                    <CardText><div className="textoComentario"><Input type="textarea" placeholder="Añade una experiencia pública..." name="comentario" value={this.state.comentario} onChange={this.handleChange} /></div></CardText>
+                                    <Button className="uploadButton" onClick={this.Guardar}>Compartir</Button>
+                                </Card>
+                                
+                            </div></Col> </> :
+                    <></>
+                }
 
                 <br></br>
 
-                {(this.state.idUsuario > 0) ?
-                    <>
-                        <h3>Guarda tu comentario</h3>
-                        <div className="inputs">
-                            <Label for="ComentInput">Comentario</Label>
-                            <Input type="text" name="comentario" value={this.state.comentario} onChange={this.handleChange} />
-                            <br />
-                            <Button onClick={this.Guardar}>Sube tu comentario</Button>
-                        </div> </> :
-                    <></>
-                }
+                {(this.state.lista.length === 0) ? <h5>Se el primero en comentar!</h5> : <Row>{listaComentarios}</Row>}
             </>
         );
     }

@@ -98,3 +98,21 @@ USE `thesafess`;
 INSERT INTO `thesafess`.`comentarios` (`idcomentarios`, `texto`, `distritos_iddistritos`, `usuarios_idusuarios`) VALUES (DEFAULT, 'Ciutat Vella mola mazo', 1, 1);
 
 COMMIT;
+
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `thesafess`.`comentarioswithuser` AS
+    SELECT 
+        `c`.`texto` AS `texto`,
+        `c`.`usuarios_idusuarios` AS `usuarios_idusuarios`,
+        `c`.`distritos_iddistritos` AS `distritos_iddistritos`,
+        `u`.`nombre` AS `nombre`
+    FROM
+        ((`thesafess`.`comentarios` `c`
+        JOIN `thesafess`.`usuarios` `u`)
+        JOIN `thesafess`.`distritos` `d`)
+    WHERE
+        ((`c`.`usuarios_idusuarios` = `u`.`idusuarios`)
+            AND (`c`.`distritos_iddistritos` = `d`.`iddistritos`))

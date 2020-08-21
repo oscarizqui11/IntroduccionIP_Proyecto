@@ -1,0 +1,85 @@
+"use strict";
+
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+
+try {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = void 0;
+
+  var _react = _interopRequireWildcard(require("react"));
+
+  var _Comentario = _interopRequireDefault(require("./Comentario"));
+
+  require("./styleDistrito.css");
+
+  var _mapabcn = _interopRequireDefault(require("url:./mapabcn.png"));
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+  function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+  class Distrito extends _react.Component {
+    constructor(props) {
+      super(props);
+    }
+
+    render() {
+      let informacion;
+
+      switch (this.props.distrito) {
+        case "Ciutat Vella":
+          informacion = /*#__PURE__*/_react.default.createElement("div", {
+            className: "columnas"
+          }, /*#__PURE__*/_react.default.createElement("div", {
+            className: "syleIzquierda"
+          }), /*#__PURE__*/_react.default.createElement("div", {
+            className: "styleMedio"
+          }, /*#__PURE__*/_react.default.createElement("img", {
+            className: "styleMapa",
+            src: _mapabcn.default
+          }), /*#__PURE__*/_react.default.createElement("h1", {
+            className: "styleTitulos"
+          }, "Distrito 1: Ciutat Vella"), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "El distrito de Ciutat Vella está delimitado por el perímetro de la muralla de la antigua ciudad y se corresponde geográficamente con el centro histórico de Barcelona."), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "Ciutat Vella es el primer distrito de Barcelona, el embrión de la ciudad. Por lo tanto, hablar de Ciutat Vella es hablar de la historia de la ciudad desde sus inicios. El distrito limita al oeste con L’Eixample, al este con el mar Mediterráneo, al norte con Sant Martí y al sur con Sants-Montjuïc. Ciutat Vella está formada por cuatro barrios, cada cual con una singularidad propia. En el sur encontramos la Barceloneta; en poniente, el Raval; en el centro, el Gòtic; y en levante, Sant Pere, Santa Caterina i la Ribera."), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "Ciutat Vella es un distrito que lo ofrece todo: cultura, patrimonio, historia, vecindad y entretenimiento. Le invitamos a conocer cada uno de sus barrios."), /*#__PURE__*/_react.default.createElement("h1", {
+            className: "styleTitulos"
+          }, "Seguridad"), /*#__PURE__*/_react.default.createElement("p", {
+            className: "styleInfo"
+          }, "La seguridad en este distrito es.... "), /*#__PURE__*/_react.default.createElement("h1", {
+            className: "styleTitulos"
+          }, "Comentarios")), /*#__PURE__*/_react.default.createElement("div", {
+            className: "styleDerecha"
+          }));
+          break;
+
+        default:
+          break;
+      }
+
+      return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h2", null, this.props.distrito), informacion, /*#__PURE__*/_react.default.createElement(_Comentario.default, {
+        idUsuario: this.props.idUsuario,
+        idDistrito: this.props.idDistrito
+      }));
+    }
+
+  }
+
+  var _default = Distrito;
+  exports.default = _default;
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
